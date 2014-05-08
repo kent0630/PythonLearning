@@ -1,8 +1,7 @@
 #!/usr/bin/python
 # encoding=utf-8
 
-############ 读文件 ################
-# open默认的第二个参数是'r',代表读文件
+### 读文件 ###
 try:
     file_object = open('out.txt')
     try:
@@ -21,7 +20,7 @@ except IOError,e:
 finally:
     pass
 
-############ 写文件 ################
+#############写文件######################
 output = open('data/output.txt', 'w')
 # a 追加写文件
 # output = open('data', 'a')
