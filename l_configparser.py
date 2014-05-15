@@ -32,40 +32,46 @@ def writeConfig(filename):
     config = ConfigParser.ConfigParser()  
     # set db  
     section_name = 'db'  
-    config.add_section( section_name )  
-    config.set( section_name, 'dbname', 'MySQL')  
-    config.set( section_name, 'host', '127.0.0.1')  
-    config.set( section_name, 'port', '80')  
-    config.set( section_name, 'password', '123456')  
-    config.set( section_name, 'databasename', 'test')  
+    config.add_section(section_name)
+    config.set(section_name, 'dbname', 'MySQL')  
+    config.set(section_name, 'host', '127.0.0.1')  
+    config.set(section_name, 'port', '80')  
+    config.set(section_name, 'password', '123456')  
+    config.set(section_name, 'databasename', 'test')  
   
-    # set app  
+    # set app
     section_name = 'app'  
-    config.add_section( section_name )  
-    config.set( section_name, 'loggerapp', '192.168.20.2')  
-    config.set( section_name, 'reportapp', '192.168.20.3')  
+    config.add_section(section_name)  
+    config.set(section_name, 'loggerapp', '192.168.20.2')  
+    config.set(section_name, 'reportapp', '192.168.20.3')  
   
     # write to file  
-    config.write( open(filename, 'a') )  
+    config.write(open(filename, 'w'))  
   
-def updateConfig(filename, section, **keyv):  
+def updateConfig(filename, section, **keyv):
     config = ConfigParser.ConfigParser()  
-    config.read(filename)  
-    print config.sections()  
-    for section in config.sections():  
+    config.read(filename)
+    print config.sections()
+
+    for section in config.sections():
         print "[",section,"]"  
-        items = config.items(section)  
+        items = config.items(section)
         for item in items:  
-            print "\t",item[0]," = ",item[1]  
+            print "\t", item[0],"=",item[1]
+
+    # has_option  
     print config.has_option("dbname", "MySQL")  
-    print config.set("db", "dbname", "11")  
-    print "..............."  
+    print config.has_option("db", "dbname")  
+    print config.set("db", "dbname", "Oracle")
+
     for key in keyv:  
         print "\t",key," = ", keyv[key]  
-    config.write( open(filename, 'r+') )  
+        print config.set("app", key, keyv[key])
+
+    config.write(open(filename, 'w'))
+    
   
 if __name__ == '__main__':  
     file_name = 'config/test.ini'  
     writeConfig(file_name)  
-    updateConfig(file_name, 'app', reportapp = '192.168.100.100')  
-    print "end__"  
+    updateConfig(file_name, 'app', reportapp = '192.168.100.100')
