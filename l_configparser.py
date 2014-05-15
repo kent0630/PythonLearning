@@ -46,7 +46,7 @@ def writeConfig(filename):
     config.set(section_name, 'reportapp', '192.168.20.3')  
   
     # write to file  
-    config.write(open(filename, 'w'))  
+    config.write(open(filename, 'w'))
   
 def updateConfig(filename, section, **keyv):
     config = ConfigParser.ConfigParser()  
@@ -70,8 +70,16 @@ def updateConfig(filename, section, **keyv):
 
     config.write(open(filename, 'w'))
     
+def readConfig(filename):
+    config = ConfigParser.ConfigParser()
+    config.read(filename)
+    print config.get("db", "name")
+    print config.getint("db", "port")
   
 if __name__ == '__main__':  
     file_name = 'config/test.ini'  
     writeConfig(file_name)  
+    readConfig(file_name)
     updateConfig(file_name, 'app', reportapp = '192.168.100.100')
+    
+
